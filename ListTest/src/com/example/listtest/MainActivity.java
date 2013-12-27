@@ -23,7 +23,7 @@ public class MainActivity extends Activity {
 	ListView lv;
 	ArrayList<Mobile> array = new ArrayList<Mobile>();
 	LayoutInflater inflater;
-
+	//¼Óµã×¢ÊÍ
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
