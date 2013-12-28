@@ -23,7 +23,8 @@ public class MainActivity extends Activity {
 	ListView lv;
 	ArrayList<Mobile> array = new ArrayList<Mobile>();
 	LayoutInflater inflater;
-	//加点注释
+
+	// 加点注释
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -109,17 +110,30 @@ public class MainActivity extends Activity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			// TODO Auto-generated method stub
-			View view = inflater.inflate(R.layout.myitem, null);
-			ImageView iv = (ImageView) view.findViewById(R.id.iv);
-			iv.setImageResource(list.get(position).img);
-			TextView title = (TextView) view.findViewById(R.id.tvTitle);
-			TextView content = (TextView) view.findViewById(R.id.tvContent);
-			TextView follow = (TextView) view.findViewById(R.id.tvFollow);
-			title.setText(list.get(position).title);
-			content.setText(list.get(position).content);
-			follow.setText(list.get(position).follow);
-			return view;
+			ViewHolder vh = null;
+			if (convertView == null) {
+				vh = new ViewHolder();
+				convertView = inflater.inflate(R.layout.myitem, null);
+				vh.iv = (ImageView) convertView.findViewById(R.id.iv);
+				vh.title = (TextView) convertView.findViewById(R.id.tvTitle);
+				vh.content = (TextView) convertView.findViewById(R.id.tvContent);
+				vh.follow = (TextView) convertView.findViewById(R.id.tvFollow);
+				convertView.setTag(vh);
+				// TODO Auto-generated method stub
+			}
+			vh = (ViewHolder) convertView.getTag();
+			vh.iv.setImageResource(list.get(position).img);
+			vh.title.setText(list.get(position).title);
+			vh.content.setText(list.get(position).content);
+			vh.follow.setText(list.get(position).follow);
+			return convertView;
+		}
+
+		class ViewHolder {
+			ImageView iv;
+			TextView title;
+			TextView content;
+			TextView follow;
 		}
 	}
 }
