@@ -3,10 +3,12 @@ package com.example.listtest;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -17,15 +19,15 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnClickListener {
 	ListView lv;
 	ArrayList<Mobile> array = new ArrayList<Mobile>();
 	LayoutInflater inflater;
+	MyAdapter ma;
 
 	// 加点注释
 	@Override
@@ -34,27 +36,34 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		inflater = getLayoutInflater();
 		lv = (ListView) findViewById(R.id.listView);
-		for (int i = 0; i < 5; i++) {
-			Mobile anycall = new Mobile(R.drawable.anycall, "三星", "心意合一思密达",
-					"112个人赞");
-			Mobile huawei = new Mobile(R.drawable.huawei, "华为", "不仅仅是五百强",
-					"110个人赞");
-			Mobile berry = new Mobile(R.drawable.berry, "黑莓", "奥观海的手机，不仅仅是安全",
-					"11个人赞");
-			Mobile nokia = new Mobile(R.drawable.nokia, "诺基亚",
-					"windows负责蓝屏，我负责抗摔", "112个人赞");
-			Mobile duowei = new Mobile(R.drawable.duowei, "朵唯", "比ps还好使",
-					"112个人赞");
-			Mobile htc = new Mobile(R.drawable.htc, "多普达", "火腿肠", "112个人赞");
-			array.add(anycall);
-			array.add(huawei);
-			array.add(berry);
-			array.add(nokia);
-			array.add(duowei);
-			array.add(htc);
-		}
+		initData();
+		Button btn = (Button) findViewById(R.id.btnAdd);
+		btn.setOnClickListener(this);
+		Button btnDelete = (Button) findViewById(R.id.btnDelete);
+		btnDelete.setOnClickListener(this);
+		initListView();
+	}
 
-		MyAdapter ma = new MyAdapter(array);
+	private void initData() {
+		Mobile anycall = new Mobile(R.drawable.anycall, "三星", "心意合一思密达",
+				"112个人赞");
+		Mobile huawei = new Mobile(R.drawable.huawei, "华为", "不仅仅是五百强", "110个人赞");
+		Mobile berry = new Mobile(R.drawable.berry, "黑莓", "奥观海的手机，不仅仅是安全",
+				"11个人赞");
+		Mobile nokia = new Mobile(R.drawable.nokia, "诺基亚", "windows负责蓝屏，我负责抗摔",
+				"112个人赞");
+		Mobile duowei = new Mobile(R.drawable.duowei, "朵唯", "比ps还好使", "112个人赞");
+		Mobile htc = new Mobile(R.drawable.htc, "多普达", "火腿肠", "112个人赞");
+		array.add(anycall);
+		array.add(huawei);
+		array.add(berry);
+		array.add(nokia);
+		array.add(duowei);
+		array.add(htc);
+	}
+
+	private void initListView() {
+		ma = new MyAdapter(array);
 		lv.setAdapter(ma);
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -156,6 +165,24 @@ public class MainActivity extends Activity {
 			TextView content;
 			TextView follow;
 			CheckBox cb;
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.btnAdd:
+			Intent intent = new Intent(getApplicationContext(),
+					GrideActivityTest.class);
+			startActivity(intent);
+			break;
+		case R.id.btnDelete:
+
+			break;
+
+		default:
+			break;
 		}
 	}
 }
