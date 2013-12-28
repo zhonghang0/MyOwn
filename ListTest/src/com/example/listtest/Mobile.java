@@ -5,6 +5,15 @@ public class Mobile {
 	String title;
 	String content;
 	String follow;
+	boolean isChecked;
+
+	public boolean isChecked() {
+		return isChecked;
+	}
+
+	public void setChecked(boolean isChecked) {
+		this.isChecked = isChecked;
+	}
 
 	public Mobile(int img, String title, String content, String follow) {
 		this.img = img;

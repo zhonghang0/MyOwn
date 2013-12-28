@@ -13,6 +13,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -31,21 +34,26 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		inflater = getLayoutInflater();
 		lv = (ListView) findViewById(R.id.listView);
-		Mobile anycall = new Mobile(R.drawable.anycall, "三星", "心意合一思密达",
-				"112个人赞");
-		Mobile huawei = new Mobile(R.drawable.huawei, "华为", "不仅仅是五百强", "110个人赞");
-		Mobile berry = new Mobile(R.drawable.berry, "黑莓", "奥观海的手机，不仅仅是安全",
-				"11个人赞");
-		Mobile nokia = new Mobile(R.drawable.nokia, "诺基亚", "windows负责蓝屏，我负责抗摔",
-				"112个人赞");
-		Mobile duowei = new Mobile(R.drawable.duowei, "朵唯", "比ps还好使", "112个人赞");
-		Mobile htc = new Mobile(R.drawable.htc, "多普达", "火腿肠", "112个人赞");
-		array.add(anycall);
-		array.add(huawei);
-		array.add(berry);
-		array.add(nokia);
-		array.add(duowei);
-		array.add(htc);
+		for (int i = 0; i < 5; i++) {
+			Mobile anycall = new Mobile(R.drawable.anycall, "三星", "心意合一思密达",
+					"112个人赞");
+			Mobile huawei = new Mobile(R.drawable.huawei, "华为", "不仅仅是五百强",
+					"110个人赞");
+			Mobile berry = new Mobile(R.drawable.berry, "黑莓", "奥观海的手机，不仅仅是安全",
+					"11个人赞");
+			Mobile nokia = new Mobile(R.drawable.nokia, "诺基亚",
+					"windows负责蓝屏，我负责抗摔", "112个人赞");
+			Mobile duowei = new Mobile(R.drawable.duowei, "朵唯", "比ps还好使",
+					"112个人赞");
+			Mobile htc = new Mobile(R.drawable.htc, "多普达", "火腿肠", "112个人赞");
+			array.add(anycall);
+			array.add(huawei);
+			array.add(berry);
+			array.add(nokia);
+			array.add(duowei);
+			array.add(htc);
+		}
+
 		MyAdapter ma = new MyAdapter(array);
 		lv.setAdapter(ma);
 		lv.setOnItemClickListener(new OnItemClickListener() {
@@ -109,19 +117,32 @@ public class MainActivity extends Activity {
 		}
 
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(final int position, View convertView,
+				ViewGroup parent) {
 			ViewHolder vh = null;
 			if (convertView == null) {
 				vh = new ViewHolder();
 				convertView = inflater.inflate(R.layout.myitem, null);
 				vh.iv = (ImageView) convertView.findViewById(R.id.iv);
 				vh.title = (TextView) convertView.findViewById(R.id.tvTitle);
-				vh.content = (TextView) convertView.findViewById(R.id.tvContent);
+				vh.content = (TextView) convertView
+						.findViewById(R.id.tvContent);
 				vh.follow = (TextView) convertView.findViewById(R.id.tvFollow);
+				vh.cb = (CheckBox) convertView.findViewById(R.id.checkBox1);
 				convertView.setTag(vh);
 				// TODO Auto-generated method stub
 			}
 			vh = (ViewHolder) convertView.getTag();
+			vh.cb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView,
+						boolean isChecked) {
+					// TODO Auto-generated method stub
+					list.get(position).setChecked(isChecked);
+				}
+			});
+			vh.cb.setChecked(list.get(position).isChecked);
+
 			vh.iv.setImageResource(list.get(position).img);
 			vh.title.setText(list.get(position).title);
 			vh.content.setText(list.get(position).content);
@@ -134,6 +155,7 @@ public class MainActivity extends Activity {
 			TextView title;
 			TextView content;
 			TextView follow;
+			CheckBox cb;
 		}
 	}
 }
