@@ -1,7 +1,7 @@
 package com.anjoyo.test;
 
 public class Test01 {
-
+	//ASFSFSZF
 	//定义各个需要的变量
 	int[] Numbers=new int[10];
 	int min=0;
